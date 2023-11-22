@@ -1,0 +1,40 @@
+{% extends "./base.html" %}
+
+{% block title %}EPMSC Honda{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2><center>Edición Alta</center></h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/editarPpl/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtApellidos_Nombres" name="txtApellidos_Nombres" value="{{ppl.apellidos_nombres}}" class="form-control" placeholder="Apellidos y Nombres" 
+                        minlength="10" maxlength="100" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" id="txtNU" name="txtNU" value="{{ppl.nu}}" class="form-control" placeholder="Número Único" minlength="6" 
+                        maxlength="10" readonly required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" id="txtPatio" name="txtPatio" value="{{ppl.patio}}" class="form-control" placeholder="Patio" pattern="[1-5]" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <button type="submit" class= "form-control btn btn-success btn-block text-white">Guardar</button>
+                    </div>  
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<h3><center>¡OJO!</center></h3>
+<H5><center>SI DESEA CAMBIAR EL NUMERO UNICO, ELIMINE LA PPL Y REGISTRELA DE NUEVO</center></h5>
+
+{% endblock %}

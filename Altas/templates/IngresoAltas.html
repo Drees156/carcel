@@ -1,0 +1,74 @@
+</li>{% extends "./base.html" %}|
+
+
+{% block title %}EPMSC Honda{% endblock %}
+
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-success" data-autohide="10">
+            <button type="button" class="btn-close" disabled aria-label="Close"></button>
+            <strong class="text-dark">{{message}}</strong>            
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2><center>Ingreso Altas</center></h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="/registrarPpl/" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtApellidos_Nombres" name="txtApellidos_Nombres" class="form-control" placeholder="Apellidos y Nombres" minlength="10" maxlength="100" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" id="txtNU" name="txtNU" class="form-control" placeholder="Número Único" minlength="6" maxlength="10" required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <input type="text" id="txtPatio" name="txtPatio" class="form-control" placeholder="Patio" pattern="[1-5]" required>
+                    </div>
+                    <br>
+                    <div class=""form-control>
+                        <button type="submit" class="form-control btn btn-success btn-block">GUARDAR</button>
+
+                    </div>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1><center>ALTAS</center></h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Apellidos y Nombres</th>
+                        <th>Número Único</th>
+                        <th>Patio</th>
+                        <th colspan="2">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in ppl %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{c.apellidos_nombres}}</td>
+                        <td>{{c.nu}}</td>
+                        <td>{{c.patio}}</td>
+                        <td><a href="{% url 'edicionPpl' c.nu %}" class="btn btn-warning bi bi-pencil-fill"></a></td>
+                        <td><a href="{% url 'eliminarPpl' c.nu %}" class="btn btn-danger bi-trash btnEliminacion"></a></td>
+                    </tr>         
+                    {% endfor %}
+                </tbody>   
+            </table>             
+
+        </div>
+    </div>
+</div>
+{% endblock %}
